@@ -3,12 +3,7 @@ import discord
 import asyncio
 
 client = discord.Client()
-@client.event
-async def on_message(message):
-if message.content.startswith('!hello'):
-        msg = 'Sup {0.author.mention}'.format(message)
 
-await client.send_message(message.channel, msg)
 @client.event
 async def on_ready():
     print('Logged in as')
@@ -17,7 +12,7 @@ async def on_ready():
     print('------')
 
 @client.event
-async def on_message(message):
+async def on_message(message):#message korrigieren
     if message.content.startswith('!test'):
         counter = 0
         tmp = await client.send_message(message.channel, 'Calculating messages...')
@@ -29,5 +24,10 @@ async def on_message(message):
     elif message.content.startswith('!sleep'):
         await asyncio.sleep(5)
         await client.send_message(message.channel, 'Done sleeping')
+        
+    if message.content.startswith('!hello'):
+        msg = 'Sup {0.author.mention}'.format(message)
+await client.send_message(message.channel, msg)
 
-client.run('NDA0MjkxMTc1NzUxNzQ1NTM3.DUTtBw.d5UE2eHI7i7f7LR9oItRGj0lalc')
+
+client.run('Token')
