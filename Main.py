@@ -27,7 +27,7 @@ async def on_message(message):#message korrigieren
         
     if message.content.startswith('!hello'):
         msg = 'Sup {0.author.mention}'.format(message)
-await client.send_message(message.channel, msg)
+        await client.send_message(message.channel, msg)
 
 
 client.run('Token')
