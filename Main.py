@@ -12,15 +12,10 @@ async def on_ready():
     print('------')
 
 @client.event
-async def on_message(message):#message korrigieren
+async def on_message(message):
     if message.content.startswith('!test'):
-        counter = 0
-        tmp = await client.send_message(message.channel, 'Calculating messages...')
-        async for log in client.logs_from(message.channel, limit=100):
-            if log.author == message.author:
-                counter += 1
-
-        await client.edit_message(tmp, 'You have {} messages.'.format(counter))
+        test = 'Stop testing fgt'.format(message)
+        await client.send_message(message.channel, test)
     elif message.content.startswith('!sleep'):
         await asyncio.sleep(5)
         await client.send_message(message.channel, 'Done sleeping')
@@ -28,6 +23,25 @@ async def on_message(message):#message korrigieren
     if message.content.startswith('!hello'):
         msg = 'Sup {0.author.mention}'.format(message)
         await client.send_message(message.channel, msg)
+    
+    if message.content.startswith('Good boy'):
+        reply = 'Am good boy?{0.author.mention}'.format(message) 
+        await client.send_message(message.channel, reply)
+        answer = await client.wait_for_message(timeout=8.0, author=message.author)
+        if answer is None:
+            fmt = 'No answer is also an answer{0.author.mention} :FeelsSadMan:'
+            await client.send_message(message.channel, fmt.format(answer)) #something wrong here, will work on that
+            return
+        right_answer = 'yes'
+        if (answer.content) == right_answer :
+            await client.send_message(message.channel, 'FeelsGoodMan')
+        else:
+            wrong_answer = 'no'
+            if (answer.content) == wrong_answer :
+                await client.send_message(message.channel, ':FeelsBadMan:')
+            else:
+                await client.send_message(message.channel, 'Sorry. i can not answer to that :/.'.format(answer))
+
 
 
 client.run('Token')
